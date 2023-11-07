@@ -76,6 +76,6 @@ print('Можно еще отладить по знакам препинания
 
 # # функции из примера
 # print('_'.join(['mama', 'mila', 'ramu'])) # join() - список в строку
-# print(list(map(str, input().split())))    # list() + map() + range()
+# print(list(map(str, input().split())))    # list() + map() + range
 # print(ord('Ё'), ord('ё'))                 # ord()
 # print(chr(1040), chr(1103))               # chr()
