@@ -21,7 +21,7 @@ import json
 # Максимальная скорость плавания – 2.9 км/ч
 
 # with - оператор контекста, удобен тем что не забудет после открытия, закрыть файл.
-with open('veb7_pubg_players.json', 'r') as f:
+with open('pubg_players.json', 'r') as f:
     player_stats = json.load(f)
 
 print(f'Формат базы {type(player_stats)}. Тип элемента (на примере 1-го): {type(player_stats[0])}')
