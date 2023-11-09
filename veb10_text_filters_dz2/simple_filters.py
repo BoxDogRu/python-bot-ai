@@ -1,4 +1,4 @@
-from veb10_random_color import random_color
+from random_color import random_color
 
 
 print('Вариант 1. "Диспетчер" и простые функции')

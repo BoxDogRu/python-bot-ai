@@ -1,4 +1,4 @@
-from veb10_random_color import random_color2
+from random_color import random_color2
 
 
 def filter_scream(text):
