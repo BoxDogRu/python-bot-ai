@@ -22,10 +22,12 @@ class BrightFilter(Filter):
 
 class DarkFilter(Filter):
     def apply_to_pixel(self, pixel: int) -> int:
-        pass
+        new_pixel = max(pixel - 100, 0)
+        return new_pixel
 
 
 class InverseFilter(Filter):
     def apply_to_pixel(self, pixel: int) -> int:
-        pass
+        new_pixel = 255 - pixel
+        return new_pixel
 
