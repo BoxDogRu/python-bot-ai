@@ -1,27 +1,31 @@
-class BrightFilter:
-    def apply_to_image(self, img):
-        print('apply BrightFilter')
+from PIL import Image
+
+
+class Filter:
+    def apply_to_pixel(self, pixel: int) -> int:
+        raise NotImplementedError()
+
+    def apply_to_image(self, img: Image.Image) -> Image.Image:
+        for j in range(img.height):
+            for i in range(img.width):
+                pixel = img.getpixel((i, j))
+                new_pixel = self.apply_to_pixel(pixel)
+                img.putpixel((i, j), new_pixel)
         return img
 
 
-class DarkFilter:
-    pass
+class BrightFilter(Filter):
+    def apply_to_pixel(self, pixel: int) -> int:
+        new_pixel = min(pixel + 100, 255)
+        return new_pixel
 
 
-class InverseFilter:
-    pass
+class DarkFilter(Filter):
+    def apply_to_pixel(self, pixel: int) -> int:
+        pass
 
 
-"""
-img = Image.open('meme.jpg').convert('L')
-img = img.resize((int(img.width * 0.5), int(img.height * 0.5)))
-img.show()
+class InverseFilter(Filter):
+    def apply_to_pixel(self, pixel: int) -> int:
+        pass
 
-for j in range(img.height):
-    for i in range(img.width):
-        pixel = img.getpixel((i, j))
-        new_pixel = max(100, pixel)
-        img.putpixel((i, j), new_pixel)
-
-img.show()
-"""
