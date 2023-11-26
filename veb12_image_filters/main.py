@@ -35,6 +35,7 @@ def main():
             path = input('Файл не найден. Повторите еще раз: ')
 
         img = Image.open(path).convert('L')
+        print(type(img))
 
         # основное меню
         for number, filter in filters.items():

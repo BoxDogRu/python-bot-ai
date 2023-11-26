@@ -2,4 +2,5 @@
 dz
 vebinars
 venv_vebinars
+*.env
 **/__pycache__/

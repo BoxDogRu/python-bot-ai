@@ -3,8 +3,8 @@ from typing import Type
 from random import randint
 
 import telebot      # Документация https://pypi.org/project/pyTelegramBotAPI/
-from filters import BlueFilter, Filter, GreenFilter, InverseFilter, RedFilter
-from filters import DolgovBlurFilter, SopolevRandomFilter
+from filters import Filter  # BlueFilter, GreenFilter, InverseFilter, RedFilter
+from filters import DolgovBlurFilter, SopolevRandomFilter, BekrenevReversFilter, KirpichevRedFilter, OrlovGreenFilter, BuninEdgesFilter
 from PIL import Image
 from telebot.types import KeyboardButton, ReplyKeyboardMarkup, Message
 
@@ -12,17 +12,17 @@ from telebot.types import KeyboardButton, ReplyKeyboardMarkup, Message
 from dotenv import load_dotenv  # загружаем переменные среды
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
-print(f'TOKEN {TOKEN[0:3]}...{TOKEN[-4:-1]}')
 
+print(f'TOKEN {TOKEN[0:3]}...{TOKEN[-4:-1]}')
 bot = telebot.TeleBot(TOKEN)
 
 filters: dict[str, Type[Filter]] = {
-    "Красный фильтр": RedFilter(),
-    "Зеленый фильтр": GreenFilter(),
-    "Синий фильтр": BlueFilter(),
-    "Инверсия": InverseFilter(),
-    "Рандомный": SopolevRandomFilter(),
-    "Блюр": DolgovBlurFilter(),
+    "Рандом от Александра": SopolevRandomFilter(),
+    "Блюр от Данилы": DolgovBlurFilter(),
+    "ЧБ-реверс от Егора": BekrenevReversFilter(),
+    "Красная маска от Захара": KirpichevRedFilter(),
+    "Зеленая маска от Кирилла": OrlovGreenFilter(),
+    "Рельеф от Николая": BuninEdgesFilter(),
 }
 
 # Словарь для хранения последней пользовательской картинки
@@ -54,33 +54,33 @@ def handle_text(message: Message):
 
 def process_image(message: Message):
     """Обработка изображений"""
-    try:
-        # Получаем информацию о картинке
-        file_info = bot.get_file(message.photo[-1].file_id)
+    #try:
+    # Получаем информацию о картинке
+    file_info = bot.get_file(message.photo[-1].file_id)
 
-        # Скачиваем картинку по ссылке
-        downloaded_file = bot.download_file(file_info.file_path)
+    # Скачиваем картинку по ссылке
+    downloaded_file = bot.download_file(file_info.file_path)
 
-        # Сохраняем картинку во временный файл
-        # file_path = f"{images_folder}/{message.chat.id}.jpg"
+    # Сохраняем картинку во временный файл
+    # file_path = f"{images_folder}/{message.chat.id}.jpg"
 
-        # Альтернативное решение - сохраняем все загруженные картинки от пользователей, обновляем их при применении фильтра
-        if not os.path.isdir(f"{images_folder}/{message.chat.id}"):
-            os.mkdir(f"{images_folder}/{message.chat.id}")
-        file_path = f"{images_folder}/{message.chat.id}/{str(randint(0, 1000001))}.jpg"
+    # Альтернативное решение - сохраняем все загруженные картинки от пользователей, обновляем их при применении фильтра
+    if not os.path.isdir(f"{images_folder}/{message.chat.id}"):
+        os.mkdir(f"{images_folder}/{message.chat.id}")
+    file_path = f"{images_folder}/{message.chat.id}/{str(randint(0, 1000001))}.jpg"
 
-        with open(file_path, "wb") as image_file:
-            image_file.write(downloaded_file)
+    with open(file_path, "wb") as image_file:
+        image_file.write(downloaded_file)
 
-        # Привязываем файл к пользователю
-        user_images[message.chat.id] = file_path
+    # Привязываем файл к пользователю
+    user_images[message.chat.id] = file_path
 
-        # Отправляем сообщение о выборе фильтра
-        keyboard = make_filter_options_keyboard(message)
-        bot.send_message(message.chat.id, "Выберите фильтр:", reply_markup=keyboard)
+    # Отправляем сообщение о выборе фильтра
+    keyboard = make_filter_options_keyboard(message)
+    bot.send_message(message.chat.id, "Выберите фильтр:", reply_markup=keyboard)
 
-    except Exception:
-        bot.reply_to(message, "Что-то пошло не так. Пожалуйста, отправьте изображение.")
+    #except Exception:
+    #    bot.reply_to(message, "Что-то пошло не так. Пожалуйста, отправьте изображение.")
 
 
 def make_filter_options_keyboard(message: Message):
