@@ -4,14 +4,16 @@ from random import randint
 
 import telebot      # Документация https://pypi.org/project/pyTelegramBotAPI/
 from filters import BlueFilter, Filter, GreenFilter, InverseFilter, RedFilter
+from filters import DolgovBlurFilter, SopolevRandomFilter
 from PIL import Image
 from telebot.types import KeyboardButton, ReplyKeyboardMarkup, Message
 
-# TOKEN = "YOUR_TOKEN_HERE"
+# TOKEN = "6280348456:ABGXJ4SjOcaHjKMA3fIBLydbkbKnph_XKoM"
 from dotenv import load_dotenv  # загружаем переменные среды
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
 print(f'TOKEN {TOKEN[0:3]}...{TOKEN[-4:-1]}')
+
 bot = telebot.TeleBot(TOKEN)
 
 filters: dict[str, Type[Filter]] = {
@@ -19,6 +21,8 @@ filters: dict[str, Type[Filter]] = {
     "Зеленый фильтр": GreenFilter(),
     "Синий фильтр": BlueFilter(),
     "Инверсия": InverseFilter(),
+    "Рандомный": SopolevRandomFilter(),
+    "Блюр": DolgovBlurFilter(),
 }
 
 # Словарь для хранения последней пользовательской картинки

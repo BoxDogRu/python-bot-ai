@@ -1,6 +1,6 @@
 import math
-from PIL import Image
-
+from PIL import Image, ImageFilter
+from random import randrange
 
 class Filter:
     """
@@ -56,3 +56,24 @@ class InverseFilter(Filter):
         for color in (r, g, b):
             result.append(int((1 - math.exp(color / 255) / math.e) * 255))
         return tuple(result)
+
+
+class SopolevRandomFilter:
+
+    def apply_to_image(self, img):
+        img = img.convert("RGB")
+        x, y = img.size
+        for i in range(x):
+            for e in range(y):
+                r, g, b = img.getpixel((i, e))
+                r, g, b = (max(0, r-randrange(0, 255)),
+                           max(0, g-randrange(0, 255)),
+                           max(0, b-randrange(0, 255)))
+                img.putpixel((i, e), (r, g, b))
+        return img
+
+
+class DolgovBlurFilter:
+    def apply_to_image(self, image):
+        blurred_image = image.filter(ImageFilter.BLUR)
+        return blurred_image
