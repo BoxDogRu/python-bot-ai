@@ -34,7 +34,7 @@ def say_hello(message):
     bot.send_message(message.chat.id, message.text)
 
 """
-# ответы на любые сообщения
+# в формате ответа - bot.reply_to(...)
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     bot.reply_to(message, message.text)
