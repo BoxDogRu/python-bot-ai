@@ -1,6 +1,6 @@
 # pip install python-dotenv
 # необходимо создать файл .env, в котором и будем хранить конфиденциальные данные, например, токен бот
-# необходимо проверить, что .env не пушится в git
+# необходимо проверить, что .env не пушится в git - добавлено в .gitignore
 
 from dotenv import load_dotenv
 import os
