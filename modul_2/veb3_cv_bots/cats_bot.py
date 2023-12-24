@@ -1,8 +1,10 @@
 import telebot
+import os
+from dotenv import load_dotenv
 import random
 
-token = 'тут_указать_токен'
-
+load_dotenv()
+token = os.getenv('TOKEN')
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
