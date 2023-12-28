@@ -7,7 +7,11 @@ def load_user_data(data_path):
     :param data_path: путь к файлу с данными
     :return: словарь с данными пользователей
     """
-    pass
+    try:
+        with open(data_path, 'r', encoding='utf8') as file:
+            return json.load(file)
+    except:
+        return {}
 
 # todo: написать функцию save_user_data
 def save_user_data(user_data, data_path):
@@ -15,4 +19,5 @@ def save_user_data(user_data, data_path):
     :param user_data: словарь с данными пользователей
     :param data_path: путь к файлу с данными
     """
-    pass
+    with open(data_path, 'w', encoding='utf8') as file:
+        json.dump(user_data, file, ensure_ascii=False, indent=2)

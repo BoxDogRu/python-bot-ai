@@ -14,7 +14,7 @@ bot = telebot.TeleBot(token)
 # bot = telebot.TeleBot(TOKEN)
 
 # todo: указать количество участников
-users_total = 2
+users_total = 7
 users_sent_gift = 0
 
 data_path = "users.json"
@@ -52,7 +52,7 @@ def send_info(user_data):
                                   f"У меня для тебя хорошие новости!")
         bot.send_message(user_id, f"Все участники зарегистрированы, начинаем розыгрыш!")
         bot.send_message(user_id, f"Твой счастливчик - {user_data[user['send_to']]['name']}"
-                                  f"Отпрваь открытку для своего подопечного ответным сообщением")
+                                  f"Отправь открытку для своего подопечного ответным сообщением")
 
 
 # Команда для отправки медиа-файлов
@@ -78,7 +78,7 @@ def send_media_files(user_data):
         file_type = user['gift_type']
         # todo: текст сообщения можно поменять
         bot.send_message(recipient_id, f"Привет, {user_data[recipient_id]['name']}!\n"
-                                       f"Тебе тут открытка от твоего секретного санты!")
+                                       f"Тебе тут открытка от твоего секретного Санты!")
         if file_type == 'photo':
             bot.send_photo(recipient_id, file_id)
         elif file_type == 'video':
