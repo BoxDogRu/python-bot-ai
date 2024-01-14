@@ -3,7 +3,7 @@ import json
 
 def load_user_data():
     try:
-        with open('user_data.json', 'r+', encoding='utf8') as file:
+        with open('example_user_data.json', 'r+', encoding='utf8') as file:
             data = json.load(file)
     except:
         data = {}
@@ -11,7 +11,7 @@ def load_user_data():
 
 
 def save_user_data(user_data):
-    with open('user_data.json', 'w+', encoding='utf8') as file:
+    with open('example_user_data.json', 'w+', encoding='utf8') as file:
         json.dump(user_data, file, ensure_ascii=False, indent=2, sort_keys=True)
 
 
