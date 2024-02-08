@@ -1,5 +1,6 @@
 .idea
 vebinars
 venv_vebinars
+*venv
 *.env
-**/__pycache__/
+*__pycache__/
