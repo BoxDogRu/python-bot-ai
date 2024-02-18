@@ -9,6 +9,12 @@ HEADERS = {"Content-Type": "application/json"}
 MAX_TOKENS = 35
 
 
+def count_tokens(text):
+    """Подсчитываем количество токенов в промте"""
+    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")  # название модели
+    return len(tokenizer.encode(text))
+
+
 def make_promt(user_request):
     """Формирование промта"""
     json = {
@@ -19,7 +25,7 @@ def make_promt(user_request):
             },
         ],
         "temperature": 1.2,
-        "max_tokens": 15,
+        "max_tokens": 50,
     }
     return json
 
@@ -29,19 +35,44 @@ def send_request():
 
     # Получение запроса от пользователя
     user_request = input("Введите запрос к GPT: ")
+    request_tokens = count_tokens(user_request)
+    while request_tokens > MAX_TOKENS or request_tokens < 1:
+        user_request = input("Запрос несоответствует кол-ву токенов\nИсправьте запрос: ")
+        request_tokens = count_tokens(user_request)
 
     # TODO Задание 1. Формирование промта и отправка запроса
-    ...
+    resp = requests.post(url=URL, headers=HEADERS, json=make_promt(user_request))
+    full_response = process_resp(resp)
+
+    if not full_response:
+        print("Не удалось выполнить запрос...")
+        return False
 
     # TODO Задание 2.2. Печать результата
-    ...
+    print_result = full_response['choices'][0]['message']['content']
+    print(print_result)
 
 
 def process_resp(response):
     """Проверка ответа на возможные ошибки и его обработка"""
 
     # TODO Задание 2.1. Обработка ответа
-    full_response = response
+
+    if response.status_code != 200:
+        print(f'Ошибка {response.status_code}')
+        return False
+
+    # Проверка json
+    try:
+        full_response = response.json()
+    except:
+        print("Ошибка получения JSON")
+        return False
+
+    # Проверка сообщения об ошибке
+    if "error" in full_response:
+        print(f"Ошибка: {full_response['error']}")
+        return False
 
     return full_response
 
