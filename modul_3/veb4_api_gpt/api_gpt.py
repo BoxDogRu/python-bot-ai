@@ -9,8 +9,8 @@ HEADERS = {"Content-Type": "application/json"}
 MAX_TOKENS = 35
 
 
-# Формирование промта
 def make_promt(user_request):
+    """Формирование промта"""
     json = {
         "messages": [
             {
@@ -24,23 +24,30 @@ def make_promt(user_request):
     return json
 
 
-# Проверка ответа на возможные ошибки и его обработка
+def send_request():
+    """Отправка и обработка запроса к GPT"""
+
+    # Получение запроса от пользователя
+    user_request = input("Введите запрос к GPT: ")
+
+    # TODO Задание 1. Формирование промта и отправка запроса
+    ...
+
+    # TODO Задание 2.2. Печать результата
+    ...
+
+
 def process_resp(response):
-    ...
+    """Проверка ответа на возможные ошибки и его обработка"""
+
+    # TODO Задание 2.1. Обработка ответа
     full_response = response
-    ...
+
     return full_response
 
 
-# Отправка и обработка запроса к GPT
-def send_request():
-    # Получение запроса от пользователя
-    user_request = input("Введите запрос к GPT: ")
-    ...
-
-
-# Выход =)
 def end():
+    """Выход =)"""
     print("До новых встреч!")
     exit(0)
 
