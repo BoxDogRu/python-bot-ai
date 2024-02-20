@@ -38,8 +38,8 @@ class GPT:
         # Результат
         result = full_response['choices'][0]['message']['content']
 
-        # Простой результат == объяснение задачи
         # TODO
+        # Простой результат == объяснение задачи
 
         # Сохраняем ответ в истории
         self.save_history(result)
