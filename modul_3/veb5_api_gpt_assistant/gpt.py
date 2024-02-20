@@ -21,7 +21,7 @@ class GPT:
         # Проверка статус кода
         if response.status_code < 200 or response.status_code >= 300:
             self.clear_history()
-            return False, f"Ошибка: {response.status_code}"
+            return False, f"Ошибка: {response.status_code}."
 
         # Проверка на json
         try:
