@@ -54,7 +54,7 @@ while True:
     if resp.status_code == 200 and 'choices' in resp.json():
         result = resp.json()['choices'][0]['message']['content']
         # TODO
-        # Простой результат == объяснение задачи
+        # Пустой результат == объяснение закончено
     else:
         print('Не удалось получить ответ от нейросети')
         print('Текст ошибки:', resp.json())
