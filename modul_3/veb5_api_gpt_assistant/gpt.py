@@ -3,7 +3,7 @@ from transformers import AutoTokenizer
 
 
 class GPT:
-    def __init__(self, system_content=""):
+    def __init__(self, system_content="Ты - дружелюбный помощник для решения задач по математике. Давай подробный ответ с решением на русском языке."):
         self.system_content = system_content
         self.URL = 'http://localhost:1234/v1/chat/completions'
         self.HEADERS = {"Content-Type": "application/json"}
