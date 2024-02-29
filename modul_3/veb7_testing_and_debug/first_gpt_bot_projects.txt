@@ -1,0 +1,6 @@
+Список проектов для тестирования
+1. https://github.com/Rozovost/GPT-Chatbot-literature-teacher
+2. https://github.com/NikkyBricky/footwear_gpt_bot
+3. https://github.com/BoxDogRu/python-bot-ai/tree/main/modul_3/veb7_testing_and_debug/projects/1
+4. https://github.com/BoxDogRu/python-bot-ai/tree/main/modul_3/veb7_testing_and_debug/projects/2
+5. https://github.com/BoxDogRu/python-bot-ai/tree/main/modul_3/veb7_testing_and_debug/projects/3

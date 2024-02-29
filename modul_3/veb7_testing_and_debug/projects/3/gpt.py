@@ -49,7 +49,7 @@ class GPT:
                 {"role": "user", "content": user_history['user_content']},
                 {"role": "assistant", "content": user_history['assistant_content']}
             ],
-            "temperature": 1.2,
+            "temperature": 0.1,
             "max_tokens": self.MAX_TOKENS,
         }
         return json
