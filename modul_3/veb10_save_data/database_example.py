@@ -48,8 +48,6 @@ def execute_selection_query(sql_query, data=None, db_path=f'{DB_NAME}'):
 # Получает название и список колонок в формате ИМЯ: ТИП
 # Создаёт запрос CREATE TABLE IF NOT EXISTS имя_таблицы (колонка1 ТИП, колонка2 ТИП)
 def create_table(table_name):
-    # TODO: Здесь необходимо прописать тип полей, вместо ##
-
     sql_query = f'CREATE TABLE IF NOT EXISTS {table_name} ' \
                 f'(id INTEGER PRIMARY KEY, ' \
                 f'user_id INTEGER, ' \
@@ -62,8 +60,6 @@ def create_table(table_name):
 
 # Функция для вывода всей таблицы (для проверки)
 # Создаёт запрос SELECT * FROM имя_таблицы
-
-# def execute_selection_query(sql_query, data, db_path=f'{DB_NAME}'):
 def get_all_rows(table_name):
     # Владимир
     query = f'SELECT * FROM {table_name}'
@@ -93,6 +89,7 @@ def insert_row(table_name, values):
 
 
 def insert_row(values):
+    # Владимир
     columns = '(user_id, subject, level, task, answer)'
     query = f"INSERT INTO {DB_TABLE_USERS_NAME} {columns} VALUES (?, ?, ?, ?, ?)"
     execute_query(query, values)
@@ -107,14 +104,14 @@ def is_value_in_table(table_name, column_name, value):
 
 # Удалить пользователя по id
 def delete_user(table_name, user_id):
-    # Даша
+    # Даша, не успели проверить
     user_delete = f'DELETE FROM {table_name} WHERE id = {user_id};'
     execute_query(user_delete)
 
 
 # Обновить значение в указанной строке и колонки
 def update_row_value(table_name, user_id, column_name, new_value):
-    # Николай тестирует
+    # Николай - работает
     try:
         data = (new_value, user_id)
         query = f"UPDATE {table_name} SET {column_name} = ? WHERE user_id = ?"
@@ -125,7 +122,7 @@ def update_row_value(table_name, user_id, column_name, new_value):
 
 # Функция для получения данных для указанного пользователя
 def get_data_for_user(table_name, user_id):
-    # Леонид
+    # Леонид, не успели проверить
     try:
         query = f"SELECT * FROM {table_name} WHERE user_id = {user_id}"
         execute_query(query)
@@ -144,17 +141,19 @@ if __name__ == '__main__':
     prepare_db(True)
     get_all_rows(DB_TABLE_USERS_NAME)
 
-    # вариант 1
+    # вариант 1 Федор
     # insert_row(DB_TABLE_USERS_NAME, [1, 'math', 'beginner', '2+2=', '4'])
-    # вариант 2
+    # вариант 2 Владимир
     # insert_row([2, 'history', 'advanced', '????', ''])
 
+    # Николай
     update_row_value(DB_TABLE_USERS_NAME, 2, 'task', '2*442')
     # update_row_value(DB_TABLE_USERS_NAME, 1, 'answer', '=884')
+
     get_all_rows(DB_TABLE_USERS_NAME)
 
     res = get_data_for_user(2)
     print(res)
 
+    # тут будет удалять юзера
     # delete_user()
-
