@@ -63,16 +63,16 @@ def create_table(table_name):
 # Функция для вывода всей таблицы (для проверки)
 # Создаёт запрос SELECT * FROM имя_таблицы
 
-# def execute_selection_query(sql_query, data=None, db_path=f'{DB_NAME}'):
+# def execute_selection_query(sql_query, data, db_path=f'{DB_NAME}'):
 def get_all_rows(table_name):
-    # TODO: Требуется написать код для вывода всей таблицы
+    # Владимир
     query = f'SELECT * FROM {table_name}'
-    rows = execute_selection_query(query)
+    rows = execute_selection_query(query, None)
     print(rows)
 
 
 
-# Функиця для удаления всех записей из таблицы
+# Функция для удаления всех записей из таблицы
 # Создаёт запрос DELETE FROM имя_таблицы
 def clean_table(table_name):
     # TODO: Требуется написать код для удаления всех записей таблицы
@@ -82,9 +82,20 @@ def clean_table(table_name):
 # Функция для вставки новой строки в таблицу
 # Принимает список значений для каждой колонки и названия колонок
 # Создаёт запрос INSERT INTO имя_таблицы (колонка1, колонка2) VALUES (?, ?)[значение1, значение2]
+"""
+def insert_row(table_name, values):
+    # Федор
+    columns = ', '.join('?' * len(values))
+    query = f"INSERT INTO {table_name} VALUES ({columns});"
+
+    execute_query(query, values)
+    """
+
+
 def insert_row(values):
-    # TODO: Требуется написать код для вставки новой строки в таблицу
-    pass
+    columns = '(user_id, subject, level, task, answer)'
+    query = f"INSERT INTO {DB_TABLE_USERS_NAME} {columns} VALUES (?, ?, ?, ?, ?)"
+    execute_query(query, values)
 
 
 # Функция для проверки, есть ли элемент в указанном столбце таблицы
@@ -95,21 +106,31 @@ def is_value_in_table(table_name, column_name, value):
 
 
 # Удалить пользователя по id
-def delete_user(user_id):
-    # TODO: Требуется написать код для удаления пользователя по id
-    pass
+def delete_user(table_name, user_id):
+    # Даша
+    user_delete = f'DELETE FROM {table_name} WHERE id = {user_id};'
+    execute_query(user_delete)
 
 
 # Обновить значение в указанной строке и колонки
-def update_row_value(user_id, column_name, new_value):
-    # TODO: Здесь вам нужно добавить код для выполнения запроса и записи в логи
-    pass
+def update_row_value(table_name, user_id, column_name, new_value):
+    # Николай тестирует
+    try:
+        data = (new_value, user_id)
+        query = f"UPDATE {table_name} SET {column_name} = ? WHERE user_id = ?"
+        execute_query(query, data=data)
+    except sqlite3.OperationalError:
+        print("Неверные данные")
 
 
 # Функция для получения данных для указанного пользователя
-def get_data_for_user(user_id):
-    # TODO: Здесь вам нужно добавить код для выполнения запроса и записи в логи
-    pass
+def get_data_for_user(table_name, user_id):
+    # Леонид
+    try:
+        query = f"SELECT * FROM {table_name} WHERE user_id = {user_id}"
+        execute_query(query)
+    except sqlite3.OperationalError:
+        print("Ошибка в get_data_for_user")
 
 
 # Функция для подготовки базы данных
@@ -123,13 +144,17 @@ if __name__ == '__main__':
     prepare_db(True)
     get_all_rows(DB_TABLE_USERS_NAME)
 
-    insert_row([1, 'math', 'beginner', '2+2=', '4'])
-    insert_row([2, 'history', 'advanced', '????', ''])
+    # вариант 1
+    # insert_row(DB_TABLE_USERS_NAME, [1, 'math', 'beginner', '2+2=', '4'])
+    # вариант 2
+    # insert_row([2, 'history', 'advanced', '????', ''])
 
-    update_row_value(1, 'task', '2*442')
-    update_row_value(1, 'answer', '=884')
+    update_row_value(DB_TABLE_USERS_NAME, 2, 'task', '2*442')
+    # update_row_value(DB_TABLE_USERS_NAME, 1, 'answer', '=884')
     get_all_rows(DB_TABLE_USERS_NAME)
 
     res = get_data_for_user(2)
     print(res)
+
+    # delete_user()
 

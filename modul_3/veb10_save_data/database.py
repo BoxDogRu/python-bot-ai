@@ -1,5 +1,6 @@
 import sqlite3
 
+
 DB_DIR = 'db'
 DB_NAME = 'gpt_helper.db'
 DB_TABLE_USERS_NAME = 'users'
@@ -49,11 +50,11 @@ def create_table(table_name):
 
     sql_query = f'CREATE TABLE IF NOT EXISTS {table_name} ' \
                 f'(id INTEGER PRIMARY KEY, ' \
-                f'user_id INTEGER, ' \
-                f'subject TEXT, ' \
-                f'level TEXT, ' \
-                f'task TEXT, ' \
-                f'answer TEXT)'
+                f'user_id ##, ' \
+                f'subject ##, ' \
+                f'level ##, ' \
+                f'task ##, ' \
+                f'answer ##)'
     execute_query(sql_query)
 
 
@@ -64,7 +65,7 @@ def get_all_rows(table_name):
     pass
 
 
-# Функция для удаления всех записей из таблицы
+# Функиця для удаления всех записей из таблицы
 # Создаёт запрос DELETE FROM имя_таблицы
 def clean_table(table_name):
     # TODO: Требуется написать код для удаления всех записей таблицы
