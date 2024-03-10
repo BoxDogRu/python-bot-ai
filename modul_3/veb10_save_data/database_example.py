@@ -1,8 +1,9 @@
 import sqlite3
+import logging
 
-DB_DIR = 'db'
-DB_NAME = 'gpt_helper.db'
-DB_TABLE_USERS_NAME = 'users'
+from config_db import DB_DIR, DB_NAME, DB_TABLE_USERS_NAME, LOGS_PATH
+
+logging.basicConfig(filename=LOGS_PATH)
 
 
 # Функция для подключения к базе данных или создания новой, если её ещё нет
@@ -10,6 +11,8 @@ def create_db(database_name=DB_NAME):
     db_path = f'{database_name}'
     connection = sqlite3.connect(db_path)
     connection.close()
+
+    logging.info('Database created')
 
 
 # Функция для выполнения любого sql-запроса для изменения данных
@@ -59,12 +62,17 @@ def create_table(table_name):
 
 # Функция для вывода всей таблицы (для проверки)
 # Создаёт запрос SELECT * FROM имя_таблицы
+
+# def execute_selection_query(sql_query, data=None, db_path=f'{DB_NAME}'):
 def get_all_rows(table_name):
     # TODO: Требуется написать код для вывода всей таблицы
-    pass
+    query = f'SELECT * FROM {table_name}'
+    rows = execute_selection_query(query)
+    print(rows)
 
 
-# Функция для удаления всех записей из таблицы
+
+# Функиця для удаления всех записей из таблицы
 # Создаёт запрос DELETE FROM имя_таблицы
 def clean_table(table_name):
     # TODO: Требуется написать код для удаления всех записей таблицы
