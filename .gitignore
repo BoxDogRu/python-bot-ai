@@ -1,6 +1,8 @@
 .idea
+.vscode
 vebinars
 venv_vebinars
 *venv
+*credentials*
 *.env
 *__pycache__/
