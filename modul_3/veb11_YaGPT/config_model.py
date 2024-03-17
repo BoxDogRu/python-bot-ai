@@ -1,4 +1,4 @@
-GPT_MODEL = 'yandexgpt'
+GPT_MODEL = 'yandexgpt-lite'
 MAX_MODEL_TOKENS = 20
 MODEL_TEMPERATURE = 0.6
 
