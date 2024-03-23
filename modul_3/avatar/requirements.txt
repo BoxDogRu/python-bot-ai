@@ -1,0 +1,4 @@
+python-dotenv==1.0.1    # .env
+pyTelegramBotAPI==4.16.1    # telebot
+peewee==3.17.1  # ORM, models
+psycopg2-binary==2.9.9  # support PostgreSQL
