@@ -62,6 +62,7 @@ class User(Model):
 
 
 class APIRequest(Model):
+    user = ForeignKeyField(User, backref='requests')
     request_body = JSONField()
     response = JSONField()
 
