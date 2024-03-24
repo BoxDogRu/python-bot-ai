@@ -3,7 +3,7 @@ Blank GPT-bot.
 
 # Description
 1. Telebot.
-2. Postgres.
+2. ORM Peewee. Postgres.
 3. 
 
 # Usage

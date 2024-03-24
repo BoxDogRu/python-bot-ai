@@ -16,7 +16,7 @@ bot = telebot.TeleBot(token=TG_TOKEN)
 
 
 def extract_unique_code(text):
-    """Отслеживанием промо ссылки"""
+    """Фиксируем промо ссылки"""
     # Extracts the unique_code from the sent /start command.
     # https://t.me/my_experimental_bot?start=promo
     return text.split()[1] if len(text.split()) > 1 else None
