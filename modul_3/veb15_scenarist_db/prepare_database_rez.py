@@ -41,7 +41,14 @@ def execute_selection_query(sql_query, data=None, db_path=DB_NAME):
 def create_table(table_name):
 
     # TODO: дописать запрос для создания таблицы
-    sql_query = f'CREATE TABLE IF NOT EXISTS {table_name} <список колонок>'
+    sql_query = (f'CREATE TABLE IF NOT EXISTS {table_name}'
+                 f'(id INTEGER PRIMARY KEY,'
+                 f'user_id INTEGER,'
+                 f'role TEXT,'
+                 f'text TEXT,'
+                 f'date TEXT,'
+                 f'tokens INTEGER,'
+                 f'session_id INTEGER);')
     execute_query(sql_query)
 
 
@@ -83,4 +90,4 @@ def prepare_db():
     create_table(TABLE_NAME)
     insert_test_data_in_table(TABLE_NAME)
 
-prepare_db()
+# prepare_db()
