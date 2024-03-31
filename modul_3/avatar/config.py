@@ -1,5 +1,5 @@
 GPT_MODEL_DICT = {
-    'YandexGPT': 'yandexgpt-lite',
+    'YandexGPT': 'yandexgpt',
     'YandexGPT Lite': 'yandexgpt-lite',
     'Summarization': 'summarization'
 }

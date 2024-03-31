@@ -1,0 +1,9 @@
+1. "Разгрузить" файл bot.py (config, keyboard)
+2. В хендлерах нет отслеживания состояний пользователя
+3. В функциях нет проверок состояний.
+4. is_sessions_limit() может выдавать ошибку
+5. Другие ошибки и неточности...
+
+Доп.материалы
+Урок “Ищем баги в коде”. https://practicum.yandex.ru/learn/kids-ai/courses/187842b6-77ce-4bb5-a21e-3441e9daf438/sprints/190133/topics/0b555e16-873b-4612-9cc8-f876ac83439b/lessons/64a17f6e-1689-45ee-84ff-acda1a0ee0b7/
+Инструкция отладки проектов https://helix-range-fd5.notion.site/2cb0eb87002e4a90985c1542cf96bd98
