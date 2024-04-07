@@ -4,8 +4,18 @@ from dotenv import load_dotenv
 import telebot
 import logging
 
+from gpt import ask_gpt
 from models import User
 from keyboards import keyboard_menu, keyboard_menu_admin
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H",
+    filename="log_file.txt",
+    filemode="w",
+    force=True
+)
 
 load_dotenv()
 
@@ -48,6 +58,16 @@ def start_bot(message):
         user.save()
     bot.set_my_commands(keyboard_menu_admin) if user.is_admin else bot.set_my_commands(keyboard_menu)
     bot.send_message(chat_id, "Welcome, " + message.from_user.first_name)
+
+
+@bot.message_handler(content_types=["text"])
+def make_genre(message):
+    """Test GPT"""
+    gpt_answer = ask_gpt(message)
+    logging.info(f"Ответ GPT: {gpt_answer}")
+    bot.send_message(message.chat.id,
+                     gpt_answer,
+                     parse_mode="html")
 
 
 if __name__ == "__main__":

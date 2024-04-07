@@ -1,3 +1,6 @@
+.env
 *credentials*
 *creds*
-.env
+authorized_key.json
+iam_token.json
+log_file.txt

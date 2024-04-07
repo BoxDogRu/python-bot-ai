@@ -2,3 +2,8 @@ python-dotenv==1.0.1    # .env
 pyTelegramBotAPI==4.16.1    # telebot
 peewee==3.17.1  # ORM, models
 psycopg2-binary==2.9.9  # support PostgreSQL
+
+# iam-token yandex gpt
+cryptography==42.0.5
+pyjwt==2.8.0
+python-dateutill==2.9.0.post0

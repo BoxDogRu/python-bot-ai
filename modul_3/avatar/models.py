@@ -6,6 +6,8 @@ import logging
 import os
 from dotenv import load_dotenv
 
+from models_init import init_methods, init_models
+
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')
@@ -61,8 +63,41 @@ class User(Model):
         return [model_to_dict(user) for user in query]
 
 
-class APIRequest(Model):
-    user = ForeignKeyField(User, backref='requests')
+class GPTModel(Model):
+    model_id = CharField(default="model_id", unique=True)
+    name = CharField(default="Название модели")
+
+    class Meta:
+        database = db
+        db_table = "gpt_model"
+
+
+class GPTMethod(Model):
+    method = CharField(default="Задача", unique=True)
+    url = CharField(default="https://")
+
+    class Meta:
+        database = db
+        db_table = "gpt_method"
+
+
+class GPTModelSET(Model):
+    id = AutoField()
+    modelUri = CharField()
+    stream = BooleanField(default=False)
+    temperature = FloatField(default=0.5)
+    max_tokens = IntegerField(default=2000)
+
+    class Meta:
+        database = db
+        db_table = "gpt_model_set"
+
+
+class GPTRequest(Model):
+    user = ForeignKeyField(User, backref='gpt_model')
+    gpt_model = ForeignKeyField(GPTModel, backref='model')
+    gpt_method = ForeignKeyField(GPTMethod, backref='gpt_method')
+    gpt_model_set = ForeignKeyField(GPTModelSET, backref='gpt_model_set')
     request_body = JSONField()
     response = JSONField()
 
@@ -74,5 +109,15 @@ class APIRequest(Model):
 db.connect()
 if not User.table_exists():
     db.create_tables([User])
-if not APIRequest.table_exists():
-    db.create_tables([APIRequest])
+if not GPTModel.table_exists():
+    db.create_tables([GPTModel])
+    for model_id, name in init_models.items():
+        GPTModel.create(model_id=model_id, name=name)
+if not GPTMethod.table_exists():
+    db.create_tables([GPTMethod])
+    for task, url in init_methods.items():
+        GPTMethod.create(method=task, url=url)
+if not GPTModelSET.table_exists():
+    db.create_tables([GPTModelSET])
+if not GPTRequest.table_exists():
+    db.create_tables([GPTRequest])
