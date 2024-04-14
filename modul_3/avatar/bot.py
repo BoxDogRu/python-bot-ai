@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 import telebot
 import logging
 
-from gpt import ask_gpt
+from yandex_gpt import ask_gpt
+from yandex_speechkit import text_to_speech, speech_to_text
 from models import User
 from keyboards import keyboard_menu, keyboard_menu_admin
 
@@ -60,6 +61,36 @@ def start_bot(message):
     bot.send_message(chat_id, "Welcome, " + message.from_user.first_name)
 
 
+@bot.message_handler(commands=['stt'])
+def stt_handler(message):
+    user_id = message.from_user.id
+    bot.send_message(user_id, 'Отправь голосовое сообщение, чтобы я его распознал!')
+    bot.register_next_step_handler(message, stt)
+
+
+def stt(message):
+    user_id = message.from_user.id
+
+    # Проверка, что сообщение действительно голосовое
+    if not message.voice:
+        return
+
+    file_id = message.voice.file_id  # получаем id голосового сообщения
+    file_info = bot.get_file(file_id)  # получаем информацию о голосовом сообщении
+    file = bot.download_file(file_info.file_path)  # скачиваем голосовое сообщение
+
+    # with open('output.ogg', "rb") as audio_file:
+    #    audio_data = audio_file.read()
+    success, result = speech_to_text(file)    # audio_data
+    if success:
+        print("Распознанный текст: ", result)
+        bot.send_message(message.chat.id,
+                         result,
+                         parse_mode="html")
+    else:
+        print("Ошибка при распознавании речи: ", result)
+
+
 @bot.message_handler(content_types=["text"])
 def make_genre(message):
     """Test GPT"""
@@ -68,6 +99,20 @@ def make_genre(message):
     bot.send_message(message.chat.id,
                      gpt_answer,
                      parse_mode="html")
+
+    """
+    # тест функции
+    success, response = text_to_speech(gpt_answer)
+    if success:
+        # Если все хорошо, сохраняем аудио в файл
+        with open("output.ogg", "wb") as audio_file:
+            audio_file.write(response)
+        print("Аудиофайл успешно сохранен как output.ogg")
+        bot.send_voice(message.chat.id, open('output.ogg', 'rb'))
+    else:
+        # Если возникла ошибка, выводим сообщение об ошибке
+        print("Ошибка:", response)
+    """
 
 
 if __name__ == "__main__":

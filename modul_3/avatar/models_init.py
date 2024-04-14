@@ -12,3 +12,12 @@ init_models = {
     'summarization': 'Суммаризация',
     'edu_test': 'Yandex DataSphere',
 }
+
+# текст в речь
+# https://yandex.cloud/ru/docs/speechkit/tts/
+# разметка речи https://yandex.cloud/ru/docs/speechkit/tts/markup/tts-markup
+# https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize
+
+# речь в текст
+# https://yandex.cloud/ru/docs/speechkit/stt/api/request-api
+# https://stt.api.cloud.yandex.net/speech/v1/stt:recognize
